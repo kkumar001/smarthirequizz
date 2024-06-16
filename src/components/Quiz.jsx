@@ -6,13 +6,13 @@ const Quiz = () => {
     const [currentQuestion, setCurrentQuestion] = useState(() => {
         const savedCurrentQuestion = localStorage.getItem('currentQuestion');
         return savedCurrentQuestion ? parseInt(savedCurrentQuestion) : 0;
-      });
+    });
     const [score, setScore] = useState(0);
     const [seeScore, setSeeScore] = useState(false);
     const [timeLeft, setTimeLeft] = useState(() => {
         const savedTimeLeft = localStorage.getItem('timeLeft');
         return savedTimeLeft ? parseInt(savedTimeLeft) : 600; // 10 minutes in seconds
-      });
+    });
 
     const handleOptionChange = (event) => {
         setSelectedOption(event.target.value);
@@ -34,11 +34,6 @@ const Quiz = () => {
 
     const handleHome = () => {
         window.location.reload();
-        setSelectedOption('');
-        setCurrentQuestion(0);
-        setSeeScore(false);
-        setScore(0);
-        setTimeLeft(600);
         localStorage.removeItem('timeLeft');
         localStorage.removeItem('currentQuestion');
     }
@@ -68,6 +63,7 @@ const Quiz = () => {
         <>
             {seeScore ?
                 <div className='flex w-full h-[calc(100vh-64px)] items-center justify-center gap-10 flex-col'>
+                    <h3 className='text-[40px] font-semibold text-green-500'>Your Score</h3>
                     <div className='flex p-4 h-[200px] w-[200px] rounded-full border-2 border-green-500 items-center justify-center text-center'>
                         <h1 className='text-[40px] font-semibold text-green-500'>{score} / <span className='text-black'>10</span></h1>
                     </div>
@@ -80,10 +76,10 @@ const Quiz = () => {
                 </div>
                 :
                 <div className='flex w-full h-[calc(100vh-64px)] items-center justify-center flex-col gap-10'>
-                    <h3>Note : The <b>Next Question Button</b> will not work if you don't choose any option.</h3>
+                    <h3 className='text-center mx-1'>Note : The <b>Next Question Button</b> will not work if you don't choose any option.</h3>
                     <h3 className='font-semibold text-lg'>Time left: {Math.floor(timeLeft / 60)} min : {timeLeft % 60 < 10 ? `0${timeLeft % 60}` : timeLeft % 60} sec</h3>
                     <div
-                        className='flex p-4 flex-col gap-6 hover:bg-green-50 rounded-lg w-[500px]'
+                        className='flex p-4 flex-col gap-6 hover:bg-green-50 rounded-lg w-[90%] sm:w-[500px]'
                         style={{ boxShadow: 'rgba(144, 238, 144, 1) 0px 1px 3px, rgba(144, 238, 144, 1) 0px 1px 2px' }}
                     >
                         <h3 className='text-lg font-semibold'><span>Q.{currentQuestion + 1}</span> <br />{questions[currentQuestion].question}</h3>
@@ -104,7 +100,7 @@ const Quiz = () => {
                     </div>
                     <button
                         onClick={handleNextQuestion}
-                        //disabled={!selectedOption}
+                        disabled={!selectedOption}
                         className='font-medium p-4 rounded-lg text-white bg-green-500 hover:bg-green-600 transition-colors duration-300 ease-in-out'
                     >
                         {currentQuestion == questions.length - 1 ? 'See Score' : 'Next Question'}

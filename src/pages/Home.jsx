@@ -42,7 +42,7 @@ const Home = () => {
                 <Quiz />
                 :
                 <div className='w-full h-[calc(100vh-64px)] flex justify-center items-center'>
-                    <div className='flex gap-10 p-6 flex-col items-center max-w-[500px] text-center rounded-lg'
+                    <div className='flex gap-10 p-6 flex-col items-center max-w-[500px] w-[90%] text-center rounded-lg'
                         style={{ boxShadow: 'rgba(144, 238, 144, 1) 0px 1px 3px, rgba(144, 238, 144, 1) 0px 1px 2px' }}
                     >
                         <h3 className='font-bold text-3xl'>Enter Full Screen Mode to Start/Resume Quiz</h3>
